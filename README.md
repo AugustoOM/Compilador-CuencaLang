@@ -3,7 +3,7 @@
 Compilador didactico para el TPI de Teoria de la Computacion.
 Compila un lenguaje propio llamado **CuencaLang** a Python 3.
 
-## Uso en VS Code o terminal
+## Uso en terminal
 
 ```bash
 python cuencalang_compiler.py examples/oferta_demanda.clg -o oferta_demanda_generado.py
