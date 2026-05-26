@@ -1,0 +1,6 @@
+programa ErrorCondicion {
+    numero oferta = 100;
+    si (oferta) {
+        imprimir oferta;
+    }
+}

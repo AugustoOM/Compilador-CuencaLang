@@ -1,0 +1,21 @@
+programa AnalisisMercado {
+    numero oferta = 120;
+    numero demanda = 95;
+    numero precio = 50;
+    numero excedente = oferta - demanda;
+    booleano hay_excedente = oferta > demanda;
+
+    imprimir "Analisis de oferta y demanda";
+    imprimir excedente;
+
+    si (hay_excedente) {
+        imprimir "Oferta mayor que demanda";
+    } sino {
+        imprimir "Demanda mayor o igual a oferta";
+    }
+
+    mientras (demanda < oferta) {
+        demanda = demanda + 5;
+        imprimir demanda;
+    }
+}

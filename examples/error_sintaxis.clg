@@ -1,0 +1,4 @@
+programa ErrorSintaxis {
+    numero oferta = 100
+    imprimir oferta;
+}

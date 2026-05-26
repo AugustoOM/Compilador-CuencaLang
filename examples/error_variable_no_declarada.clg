@@ -1,0 +1,4 @@
+programa ErrorVariable {
+    numero oferta = 100;
+    imprimir demanda;
+}

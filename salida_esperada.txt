@@ -1,0 +1,8 @@
+Analisis de oferta y demanda
+25
+Oferta mayor que demanda
+100
+105
+110
+115
+120
