@@ -12,7 +12,7 @@ python oferta_demanda_generado.py
 
 Para ver los tokens reconocidos:
 
-```bash
+```bash.
 python cuencalang_compiler.py examples/oferta_demanda.clg --tokens
 ```
 
