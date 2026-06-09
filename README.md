@@ -1,28 +1,92 @@
-# CuencaLang Compiler
+# CuencaLang Compiler + CuencaVM
 
-Compilador didactico para el TPI de Teoria de la Computacion.
-Compila un lenguaje propio llamado **CuencaLang** a Python 3.
+Trabajo Practico Integrador de Teoria de la Computacion.
 
-## Uso en terminal
+Este proyecto implementa un lenguaje propio llamado **CuencaLang** y un compilador propio que genera **CuencaBytecode**, un codigo intermedio disenado para el trabajo. El bytecode se ejecuta con **CuencaVM**, una maquina virtual propia basada en pila.
 
-```bash
-python cuencalang_compiler.py examples/oferta_demanda.clg -o oferta_demanda_generado.py
-python oferta_demanda_generado.py
+## Flujo real
+
+```txt
+CuencaLang (.clg)
+  -> Lexer
+  -> Tokens
+  -> Parser
+  -> AST
+  -> Analisis semantico
+  -> Generador de CuencaBytecode (.cbc)
+  -> CuencaVM
+  -> Salida del programa
 ```
 
-Para ver los tokens reconocidos:
+El compilador esta implementado en Python como herramienta de desarrollo, pero **Python no es el lenguaje destino**. El lenguaje destino es CuencaBytecode.
 
-```bash.
-python cuencalang_compiler.py examples/oferta_demanda.clg --tokens
+## Archivos principales
+
+```txt
+cuencalang.py                 Compilador + VM
+examples/oferta_demanda.clg   Programa valido principal
+examples/ahorro_simple.clg    Segundo programa valido
+tests/test_cuencalang.py      Pruebas automaticas
+```
+
+## Uso
+
+Compilar un programa fuente a bytecode:
+
+```bash
+python cuencalang.py compile examples/oferta_demanda.clg -o oferta_demanda.cbc --dis
+```
+
+Ejecutar directamente un programa fuente:
+
+```bash
+python cuencalang.py run examples/oferta_demanda.clg
+```
+
+Ejecutar bytecode ya compilado:
+
+```bash
+python cuencalang.py run oferta_demanda.cbc
+```
+
+Ver tokens y AST:
+
+```bash
+python cuencalang.py compile examples/oferta_demanda.clg --tokens --ast
+```
+
+Desensamblar bytecode:
+
+```bash
+python cuencalang.py dis oferta_demanda.cbc
 ```
 
 ## Fases implementadas
 
-1. Analisis lexico: convierte el codigo fuente en tokens.
-2. Analisis sintactico: construye un AST con descenso recursivo.
-3. Analisis semantico: valida declaraciones, tipos y condiciones.
-4. Generacion de codigo: emite Python equivalente.
+1. Analisis lexico: convierte caracteres en tokens.
+2. Analisis sintactico: valida la gramatica y construye un AST.
+3. Analisis semantico: valida declaracion de variables, tipos y condiciones.
+4. Generacion de codigo intermedio: emite instrucciones CuencaBytecode.
+5. Ejecucion en maquina virtual: CuencaVM ejecuta el bytecode con una pila y memoria propia.
 
-## Ejemplo de dominio
+## Instrucciones de bytecode
 
-El ejemplo principal calcula una situacion de oferta y demanda: compara oferta disponible con demanda, calcula excedente y ejecuta un ciclo hasta acercar la demanda al nivel de oferta.
+Algunas instrucciones usadas por CuencaBytecode:
+
+- `PUSH valor`
+- `DECLARE {name, type}`
+- `STORE variable`
+- `LOAD variable`
+- `ADD`, `SUB`, `MUL`, `DIV`
+- `LT`, `GT`, `LE`, `GE`, `EQ`, `NE`
+- `AND`, `OR`, `NOT`, `NEG`
+- `JMP direccion`
+- `JMP_IF_FALSE direccion`
+- `PRINT`
+- `HALT`
+
+## Ejecutar pruebas
+
+```bash
+python -m unittest discover -s tests -v
+```

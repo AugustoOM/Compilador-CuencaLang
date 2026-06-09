@@ -1,0 +1,221 @@
+{
+  "format": "CuencaBytecode",
+  "version": 1,
+  "program": "AnalisisMercado",
+  "instructions": [
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "oferta",
+        "type": "numero"
+      }
+    },
+    {
+      "op": "PUSH",
+      "arg": 120
+    },
+    {
+      "op": "STORE",
+      "arg": "oferta"
+    },
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "demanda",
+        "type": "numero"
+      }
+    },
+    {
+      "op": "PUSH",
+      "arg": 95
+    },
+    {
+      "op": "STORE",
+      "arg": "demanda"
+    },
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "precio",
+        "type": "numero"
+      }
+    },
+    {
+      "op": "PUSH",
+      "arg": 50
+    },
+    {
+      "op": "STORE",
+      "arg": "precio"
+    },
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "excedente",
+        "type": "numero"
+      }
+    },
+    {
+      "op": "LOAD",
+      "arg": "oferta"
+    },
+    {
+      "op": "LOAD",
+      "arg": "demanda"
+    },
+    {
+      "op": "SUB",
+      "arg": null
+    },
+    {
+      "op": "STORE",
+      "arg": "excedente"
+    },
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "hay_excedente",
+        "type": "booleano"
+      }
+    },
+    {
+      "op": "LOAD",
+      "arg": "oferta"
+    },
+    {
+      "op": "LOAD",
+      "arg": "demanda"
+    },
+    {
+      "op": "GT",
+      "arg": null
+    },
+    {
+      "op": "STORE",
+      "arg": "hay_excedente"
+    },
+    {
+      "op": "DECLARE",
+      "arg": {
+        "name": "titulo",
+        "type": "texto"
+      }
+    },
+    {
+      "op": "PUSH",
+      "arg": "Analisis de oferta y demanda"
+    },
+    {
+      "op": "STORE",
+      "arg": "titulo"
+    },
+    {
+      "op": "LOAD",
+      "arg": "titulo"
+    },
+    {
+      "op": "PRINT",
+      "arg": null
+    },
+    {
+      "op": "LOAD",
+      "arg": "excedente"
+    },
+    {
+      "op": "PRINT",
+      "arg": null
+    },
+    {
+      "op": "LOAD",
+      "arg": "hay_excedente"
+    },
+    {
+      "op": "LOAD",
+      "arg": "precio"
+    },
+    {
+      "op": "PUSH",
+      "arg": 50
+    },
+    {
+      "op": "GE",
+      "arg": null
+    },
+    {
+      "op": "AND",
+      "arg": null
+    },
+    {
+      "op": "JMP_IF_FALSE",
+      "arg": 35
+    },
+    {
+      "op": "PUSH",
+      "arg": "Oferta mayor que demanda"
+    },
+    {
+      "op": "PRINT",
+      "arg": null
+    },
+    {
+      "op": "JMP",
+      "arg": 37
+    },
+    {
+      "op": "PUSH",
+      "arg": "Demanda mayor o igual a oferta"
+    },
+    {
+      "op": "PRINT",
+      "arg": null
+    },
+    {
+      "op": "LOAD",
+      "arg": "demanda"
+    },
+    {
+      "op": "LOAD",
+      "arg": "oferta"
+    },
+    {
+      "op": "LT",
+      "arg": null
+    },
+    {
+      "op": "JMP_IF_FALSE",
+      "arg": 48
+    },
+    {
+      "op": "LOAD",
+      "arg": "demanda"
+    },
+    {
+      "op": "PUSH",
+      "arg": 5
+    },
+    {
+      "op": "ADD",
+      "arg": null
+    },
+    {
+      "op": "STORE",
+      "arg": "demanda"
+    },
+    {
+      "op": "LOAD",
+      "arg": "demanda"
+    },
+    {
+      "op": "PRINT",
+      "arg": null
+    },
+    {
+      "op": "JMP",
+      "arg": 37
+    },
+    {
+      "op": "HALT",
+      "arg": null
+    }
+  ]
+}

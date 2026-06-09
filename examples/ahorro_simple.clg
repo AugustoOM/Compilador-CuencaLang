@@ -1,0 +1,11 @@
+programa AhorroSimple {
+    numero capital = 1000;
+    numero mes = 0;
+    numero interes = 50;
+
+    mientras (mes < 3) {
+        capital = capital + interes;
+        mes = mes + 1;
+        imprimir capital;
+    }
+}

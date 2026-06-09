@@ -1,4 +1,4 @@
 programa ErrorSintaxis {
-    numero oferta = 100
-    imprimir oferta;
+    numero x = 10
+    imprimir x;
 }

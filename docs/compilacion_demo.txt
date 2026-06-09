@@ -1,0 +1,51 @@
+; CuencaBytecode v1 - programa AnalisisMercado
+0000: DECLARE {"name": "oferta", "type": "numero"}
+0001: PUSH 120
+0002: STORE "oferta"
+0003: DECLARE {"name": "demanda", "type": "numero"}
+0004: PUSH 95
+0005: STORE "demanda"
+0006: DECLARE {"name": "precio", "type": "numero"}
+0007: PUSH 50
+0008: STORE "precio"
+0009: DECLARE {"name": "excedente", "type": "numero"}
+0010: LOAD "oferta"
+0011: LOAD "demanda"
+0012: SUB
+0013: STORE "excedente"
+0014: DECLARE {"name": "hay_excedente", "type": "booleano"}
+0015: LOAD "oferta"
+0016: LOAD "demanda"
+0017: GT
+0018: STORE "hay_excedente"
+0019: DECLARE {"name": "titulo", "type": "texto"}
+0020: PUSH "Analisis de oferta y demanda"
+0021: STORE "titulo"
+0022: LOAD "titulo"
+0023: PRINT
+0024: LOAD "excedente"
+0025: PRINT
+0026: LOAD "hay_excedente"
+0027: LOAD "precio"
+0028: PUSH 50
+0029: GE
+0030: AND
+0031: JMP_IF_FALSE 35
+0032: PUSH "Oferta mayor que demanda"
+0033: PRINT
+0034: JMP 37
+0035: PUSH "Demanda mayor o igual a oferta"
+0036: PRINT
+0037: LOAD "demanda"
+0038: LOAD "oferta"
+0039: LT
+0040: JMP_IF_FALSE 48
+0041: LOAD "demanda"
+0042: PUSH 5
+0043: ADD
+0044: STORE "demanda"
+0045: LOAD "demanda"
+0046: PRINT
+0047: JMP 37
+0048: HALT
+Compilacion correcta: examples/oferta_demanda.clg -> oferta_demanda.cbc

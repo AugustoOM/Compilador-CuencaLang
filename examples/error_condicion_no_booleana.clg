@@ -1,6 +1,5 @@
 programa ErrorCondicion {
-    numero oferta = 100;
-    si (oferta) {
-        imprimir oferta;
+    si (5) {
+        imprimir 1;
     }
 }
