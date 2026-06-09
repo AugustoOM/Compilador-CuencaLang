@@ -83,6 +83,8 @@ class Lexer:
                 col += len(value)
                 continue
             if kind == "MISMATCH":
+                if value == '"':
+                    raise CompileError(f"Cadena de texto sin cerrar en linea {line}, columna {col}")
                 raise CompileError(f"Caracter inesperado {value!r} en linea {line}, columna {col}")
             if kind == "ID" and value in KEYWORDS:
                 kind = KEYWORDS[value]
@@ -153,6 +155,12 @@ class Parser:
     def current(self) -> Token:
         return self.tokens[self.pos]
 
+    def lookahead(self, offset: int) -> Token:
+        index = self.pos + offset
+        if index >= len(self.tokens):
+            return self.tokens[-1]
+        return self.tokens[index]
+
     def advance(self) -> Token:
         tok = self.current()
         self.pos += 1
@@ -167,6 +175,8 @@ class Parser:
         if self.current().type == typ:
             return self.advance()
         tok = self.current()
+        if typ == "SEMI":
+            raise CompileError(f"{msg}; posible ';' faltante antes de {tok.type} ({tok.value!r}) en linea {tok.line}, columna {tok.col}")
         raise CompileError(f"{msg}. Encontrado {tok.type} ({tok.value!r}) en linea {tok.line}, columna {tok.col}")
 
     def parse(self) -> Program:
@@ -189,6 +199,8 @@ class Parser:
         if tok.type in {"NUMERO_TIPO", "TEXTO_TIPO", "BOOLEANO_TIPO"}:
             return self.var_decl()
         if tok.type == "ID":
+            if self.lookahead(1).type == "ID":
+                raise CompileError(f"Tipo de variable desconocido '{tok.value}' en linea {tok.line}, columna {tok.col}. Tipos validos: numero, texto, booleano")
             return self.assignment()
         if tok.type == "IMPRIMIR":
             return self.print_stmt()

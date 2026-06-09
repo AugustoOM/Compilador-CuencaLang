@@ -93,6 +93,8 @@ class Lexer:
         while pos < n:
             match = MASTER_RE.match(self.source, pos)
             if not match:
+                if self.source[pos] == '"':
+                    raise CompileError(f"Error lexico en linea {line}, columna {col}: cadena de texto sin cerrar")
                 fragment = self.source[pos:pos+20].split("\n")[0]
                 raise CompileError(f"Error lexico en linea {line}, columna {col}: simbolo inesperado cerca de {fragment!r}")
 
@@ -204,6 +206,12 @@ class Parser:
     def check(self, *types: str) -> bool:
         return self.peek().type in types
 
+    def lookahead(self, offset: int) -> Token:
+        index = self.current + offset
+        if index >= len(self.tokens):
+            return self.tokens[-1]
+        return self.tokens[index]
+
     def match(self, *types: str) -> bool:
         if self.check(*types):
             self.current += 1
@@ -215,6 +223,8 @@ class Parser:
             self.current += 1
             return self.previous()
         tok = self.peek()
+        if type_ == "SEMI":
+            raise CompileError(f"Error sintactico en linea {tok.line}, columna {tok.column}: {message}; posible ';' faltante antes de {tok.type}({tok.value!r})")
         raise CompileError(f"Error sintactico en linea {tok.line}, columna {tok.column}: {message}. Se encontro {tok.type}({tok.value!r})")
 
     def parse(self) -> Program:
@@ -244,6 +254,9 @@ class Parser:
         if self.match("MIENTRAS"):
             return self.while_stmt()
         if self.check("ID"):
+            if self.lookahead(1).type == "ID":
+                tok = self.peek()
+                raise CompileError(f"Error semantico en linea {tok.line}, columna {tok.column}: tipo de variable desconocido '{tok.value}'. Tipos validos: numero, texto, booleano")
             name = self.expect("ID", "se esperaba identificador").value
             self.expect("ASSIGN", "se esperaba '=' en la asignacion")
             expr = self.expression()

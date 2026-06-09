@@ -56,6 +56,21 @@ class CuencaLangTests(unittest.TestCase):
         with self.assertRaises(CompileError):
             compile_source_to_bytecode(source)
 
+    def test_error_punto_y_coma_faltante(self):
+        source = 'programa X { numero x = 10 imprimir x; }'
+        with self.assertRaisesRegex(CompileError, "faltante|;"):
+            compile_source_to_bytecode(source)
+
+    def test_error_cadena_sin_cerrar(self):
+        source = 'programa X { texto saludo = "hola; }'
+        with self.assertRaisesRegex(CompileError, "sin cerrar"):
+            compile_source_to_bytecode(source)
+
+    def test_error_tipo_variable_desconocido(self):
+        source = 'programa X { decimal precio = 10; }'
+        with self.assertRaisesRegex(CompileError, "tipo de variable desconocido"):
+            compile_source_to_bytecode(source)
+
     def test_serializacion_bytecode(self):
         bc = compile_source_to_bytecode('programa X { numero x = 2 + 3; imprimir x; }')
         text = bc.to_json_text()
