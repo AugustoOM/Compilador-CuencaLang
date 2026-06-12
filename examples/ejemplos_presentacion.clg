@@ -1,0 +1,6 @@
+programa Presentacion {
+    numero x1 = 10;
+    texto t1 = "Messi";
+    imprimir x1; 
+    imprimir t1;
+}

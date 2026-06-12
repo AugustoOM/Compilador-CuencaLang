@@ -1,4 +1,4 @@
 programa ErrorSintaxis {
-    numero x = 10
+    numero x = "10";
     imprimir x;
 }

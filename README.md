@@ -1,5 +1,7 @@
 # CuencaLang Compiler + CuencaVM
 
+![CuencaLang logo](docs/Cuencalang-logo.png)
+
 Trabajo Practico Integrador de Teoria de la Computacion.
 
 Este proyecto implementa un lenguaje propio llamado **CuencaLang** y un compilador propio que genera **CuencaBytecode**, un codigo intermedio disenado para el trabajo. El bytecode se ejecuta con **CuencaVM**, una maquina virtual propia basada en pila.
